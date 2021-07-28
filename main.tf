@@ -72,7 +72,16 @@ resource "aws_ecs_service" "ecs_service" {
   task_definition = aws_ecs_task_definition.task_def.family
 
   health_check_grace_period_seconds = var.health_check_grace_period_seconds
-  enable_execute_command = var.enable_execute_command
+  enable_execute_command            = var.enable_execute_command
+
+  deployment_circuit_breaker {
+    enable   = var.deployment_circuit_breaker.enable
+    rollback = var.deployment_circuit_breaker.rollback
+  }
+
+  deployment_controller {
+    type = var.deployment_controller.type
+  }
 
   network_configuration {
     subnets          = var.subnet_ids
@@ -92,7 +101,7 @@ resource "aws_ecs_service" "ecs_service" {
   lifecycle {
     ignore_changes = [
       desired_count,
-      launch_type, // somehow it conflict with capacity provider
+      launch_type,     // somehow it conflict with capacity provider
       task_definition, // https://github.com/terraform-providers/terraform-provider-aws/issues/632
     ]
   }

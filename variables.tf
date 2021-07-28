@@ -66,7 +66,7 @@ variable "enable_execute_command" {
   description = "Specifies whether to enable Amazon ECS Exec for the tasks within the service"
   type        = bool
   default     = false
-} 
+}
 
 variable "main_container_name" {
   description = "Name of the container name that will be registered to target group"
@@ -172,4 +172,26 @@ variable "capacity_provider_strategies" {
     base              = number
   }))
   default = []
+}
+
+variable "deployment_circuit_breaker" {
+  description = "Enable deployment circuit breaker. Valid value: true, false"
+  type = object({
+    enable   = bool
+    rollback = bool
+  })
+  default = {
+    enable   = false
+    rollback = false
+  }
+}
+
+variable "deployment_controller" {
+  description = "Type of deployment controller. Valid value: CODE_DEPLOY, ECS, EXTERNAL. Default: ECS."
+  type = object({
+    type = string
+  })
+  default = {
+    type = "ECS"
+  }
 }
