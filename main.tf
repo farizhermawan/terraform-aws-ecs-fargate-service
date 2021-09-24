@@ -69,7 +69,7 @@ resource "aws_ecs_service" "ecs_service" {
 
   platform_version = var.platform_version
 
-  task_definition = aws_ecs_task_definition.task_def.family
+  task_definition = "${aws_ecs_task_definition.task_def.family}:${max(aws_ecs_task_definition.task_def.revision, data.aws_ecs_task_definition.task_def.revision)}"
 
   health_check_grace_period_seconds = var.health_check_grace_period_seconds
   enable_execute_command            = var.enable_execute_command
@@ -102,9 +102,12 @@ resource "aws_ecs_service" "ecs_service" {
     ignore_changes = [
       desired_count,
       launch_type,     // somehow it conflict with capacity provider
-      task_definition, // https://github.com/terraform-providers/terraform-provider-aws/issues/632
     ]
   }
+}
+
+data "aws_ecs_task_definition" "task_def" {
+  task_definition = aws_ecs_task_definition.task_def.family
 }
 
 resource "aws_ecs_task_definition" "task_def" {

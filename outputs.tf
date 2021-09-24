@@ -17,3 +17,8 @@ output "taskdef_arn" {
   value       = aws_ecs_task_definition.task_def.arn
   description = "The full ARN of the task definition"
 }
+
+output "taskdef_version" {
+  value = aws_ecs_task_definition.task_def.revision
+  description = "Task revision"
+}
