@@ -64,7 +64,7 @@ resource "aws_ecs_service" "ecs_service" {
     type = var.deployment_controller
   }
 
-  propagate_tags = "SERVICE"
+  propagate_tags = var.propagate_tags
   tags           = merge(local.global_tags, local.service_tags, var.service_tags)
 
   lifecycle {
