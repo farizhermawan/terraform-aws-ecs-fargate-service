@@ -161,13 +161,10 @@ variable "volume" {
     name = string
     efs_volume_configuration= object({
       file_system_id          = string
-      root_directory          = string
       transit_encryption      = string
       transit_encryption_port = number
-      authorization_config= object ({
-        access_point_id = string
-        iam             = string
-      })
     })
   })
+  default = {
+  }
 }
