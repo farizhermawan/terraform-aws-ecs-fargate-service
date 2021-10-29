@@ -94,4 +94,5 @@ resource "aws_ecs_task_definition" "task_def" {
   lifecycle {
     create_before_destroy = true
   }
+  volume= var.volume
 }
