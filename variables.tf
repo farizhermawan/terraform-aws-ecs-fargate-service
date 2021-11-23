@@ -155,16 +155,8 @@ variable "propagate_tags" {
   default     = "SERVICE"
 }
 
-variable "volume" {
-  description = "volume"
-  type = object({
-    name = string
-    efs_volume_configuration= object({
-      file_system_id          = string
-      transit_encryption      = string
-      transit_encryption_port = number
-    })
-  })
-  default = {
-  }
+variable "volumes" {
+  default     = []
+  description = "A list of volume definitions in JSON format that containers in your task may use"
+  type        = list(any)
 }
