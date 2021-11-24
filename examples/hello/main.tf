@@ -49,6 +49,16 @@ module "service" {
   subnet_ids         = "${var.subnets}"
   security_group_ids = ["${aws_security_group.app.id}"]
   assign_public_ip   = false
+  volumes= [{
+      name = "test-efs"
+
+      efs_volume_configuration =[{
+        file_system_id          = "fs-0648fbed6728dfe0c"
+        transit_encryption      = "ENABLED"
+        transit_encryption_port = 2049
+      }]
+    },
+  ]
 }
 
 module "lb" {

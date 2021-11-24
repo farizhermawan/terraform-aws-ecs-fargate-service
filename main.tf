@@ -125,9 +125,3 @@ resource "aws_ecs_task_definition" "task_def" {
   }
 }
 
-resource "aws_cloudwatch_log_group" "log_group" {
-  name              = module.log_group_name.name
-  retention_in_days = var.log_retention_in_days
-
-  tags = merge(local.global_tags, var.log_tags)
-}
