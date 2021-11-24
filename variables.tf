@@ -154,3 +154,9 @@ variable "propagate_tags" {
   type        = string
   default     = "SERVICE"
 }
+
+variable "volumes" {
+  default     = []
+  description = "A list of volume definitions in JSON format that containers in your task may use"
+  type        = list(any)
+}
