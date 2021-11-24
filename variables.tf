@@ -195,3 +195,9 @@ variable "deployment_controller" {
     type = "ECS"
   }
 }
+
+variable "volumes" {
+  default     = []
+  description = "A list of volume definitions in JSON format that containers in your task may use"
+  type        = list(any)
+}
