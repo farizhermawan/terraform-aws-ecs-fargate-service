@@ -56,12 +56,6 @@ variable "image_version" {
   type        = string
 }
 
-variable "use_latest_task_definition" {
-  description = "Wether to always use latest task definition. Set it to false if you have external release tool"
-  type        = bool
-  default     = true
-}
-
 variable "main_container_name" {
   description = "Name of the container name that will be registered to target group"
   type        = string
@@ -106,6 +100,12 @@ variable "container_definition_template_file" {
   description = "Custom container definition template"
   type        = string
   default     = ""
+}
+
+variable "container_definition_template_args" {
+  description = "Custom container definition template arguments"
+  type        = map(any)
+  default     = {}
 }
 
 variable "task_role_arn" {

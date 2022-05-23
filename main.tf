@@ -18,7 +18,7 @@ locals {
     Name = module.taskdef_name.name
   }
 
-  container_definitions = templatefile(var.container_definition_template_file != "" ? var.container_definition_template_file : "${path.module}/templates/container-definition.json.tpl", {
+  container_definitions = templatefile(var.container_definition_template_file != "" ? var.container_definition_template_file : "${path.module}/templates/container-definition.json.tpl", merge({
     aws_region     = data.aws_region.current.name
     container_name = var.main_container_name
     image_name     = var.image_name
@@ -27,25 +27,25 @@ locals {
     log_group      = aws_cloudwatch_log_group.log_group.name
     environment    = jsonencode(var.environment_variables)
     product_domain = var.product_domain
-  })
+  }, var.container_definition_template_args))
 }
 
 module "service_name" {
-  source = "github.com/traveloka/terraform-aws-resource-naming?ref=v0.19.1"
+  source = "github.com/traveloka/terraform-aws-resource-naming?ref=v0.23.0"
 
   name_prefix   = local.cluster
   resource_type = "ecs_service"
 }
 
 module "taskdef_name" {
-  source = "github.com/traveloka/terraform-aws-resource-naming?ref=v0.19.1"
+  source = "github.com/traveloka/terraform-aws-resource-naming?ref=v0.23.0"
 
   name_prefix   = local.cluster
   resource_type = "ecs_task_definition"
 }
 
 module "log_group_name" {
-  source = "github.com/traveloka/terraform-aws-resource-naming?ref=v0.19.1"
+  source = "github.com/traveloka/terraform-aws-resource-naming?ref=v0.23.0"
 
   name_prefix   = "/tvlk/${var.cluster_role}-${var.application}/${var.service_name}"
   resource_type = "cloudwatch_log_group"
@@ -91,7 +91,7 @@ resource "aws_ecs_service" "ecs_service" {
   lifecycle {
     ignore_changes = [
       desired_count,
-      launch_type, // somehow it conflict with capacity provider
+      launch_type,     // somehow it conflict with capacity provider
       task_definition, // https://github.com/terraform-providers/terraform-provider-aws/issues/632
     ]
   }
