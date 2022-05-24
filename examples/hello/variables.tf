@@ -9,5 +9,5 @@ variable "certificate_arn" {}
 variable "vpc_id" {}
 
 variable "subnets" {
-  type = "list"
+  type = list(any)
 }
