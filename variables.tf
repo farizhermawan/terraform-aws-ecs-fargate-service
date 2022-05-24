@@ -65,12 +65,12 @@ variable "health_check_grace_period_seconds" {
 
 variable "subnet_ids" {
   description = "List of IDs of subnets to launch the service in"
-  type        = list
+  type        = list(any)
 }
 
 variable "security_group_ids" {
   description = "List of IDs of security groups to associate with the service"
-  type        = list
+  type        = list(any)
 }
 
 variable "assign_public_ip" {
@@ -97,7 +97,7 @@ variable "execution_role_arn" {
 
 variable "environment_variables" {
   description = "List of environment variables to pass to the task"
-  type        = list
+  type        = list(any)
   default     = []
 }
 
@@ -115,13 +115,13 @@ variable "memory" {
 
 variable "service_tags" {
   description = "Custom tags for ECS Service"
-  type        = map
+  type        = map(any)
   default     = {}
 }
 
 variable "taskdef_tags" {
   description = "Custom tags for ECS Task Definition"
-  type        = map
+  type        = map(any)
   default     = {}
 }
 

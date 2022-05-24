@@ -13,7 +13,7 @@ validate:
 			cd "$$m" && \
 			export AWS_REGION=$(AWS_REGION) && \
 			terraform init -backend=false -input=false > /dev/null && \
-			terraform validate -var-file "$(TEST_TFVARS_FILE)" \
+			terraform validate \
 		) && echo "[✔]" || exit 1 ; \
 	done
 

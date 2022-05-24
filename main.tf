@@ -20,14 +20,14 @@ locals {
 }
 
 module "service_name" {
-  source = "github.com/traveloka/terraform-aws-resource-naming?ref=v0.19.1"
+  source = "github.com/traveloka/terraform-aws-resource-naming?ref=v0.23.0"
 
   name_prefix   = local.cluster
   resource_type = "ecs_service"
 }
 
 module "taskdef_name" {
-  source = "github.com/traveloka/terraform-aws-resource-naming?ref=v0.19.1"
+  source = "github.com/traveloka/terraform-aws-resource-naming?ref=v0.23.0"
 
   name_prefix   = local.cluster
   resource_type = "ecs_task_definition"
@@ -94,8 +94,8 @@ resource "aws_ecs_task_definition" "task_def" {
   lifecycle {
     create_before_destroy = true
   }
-  
-   dynamic "volume" {
+
+  dynamic "volume" {
     for_each = var.volumes
     content {
 
