@@ -1,0 +1,15 @@
+[{
+  "name": "app",
+  "image": "${aws_account_id}.dkr.ecr.${aws_region}.amazonaws.com/${service_name}:${service_version}",
+  "essential": true,
+  "dockerLabels": {},
+  "logConfiguration": {
+    "logDriver": "awslogs"
+  },
+  "portMappings": [
+      {
+          "protocol": "tcp",
+          "containerPort": 12345
+      }
+  ]
+}]

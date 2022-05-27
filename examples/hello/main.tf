@@ -37,20 +37,12 @@ module "service" {
 
   main_container_port = local.container_port
 
-  container_definitions = jsonencode([
-    {
-      name      = "app"
-      image     = "test:tag"
-      cpu       = 10
-      memory    = 512
-      essential = true
-      portMappings = [
-        {
-          containerPort = 3000
-          hostPort      = 3000
-        }
-      ]
-  }])
+  container_definitions = templatefile("${path.module}/container_definitions.tftpl", {
+      aws_region     = "ap-southeast-1"
+      aws_account_id = "123456789012"
+      service_name  = "mysvc"
+      service_version = "v1.0.0"
+  })
 
   task_role_arn      = "arn:aws:iam::123456789012:role/service-role/ecs-tasks.amazonaws.com/ServiceRoleForEcs-Tasks_webdemo-execution-1b5e77c7a347fc2b"
   execution_role_arn = "arn:aws:iam::123456789012:role/service-role/ecs-tasks.amazonaws.com/ServiceRoleForEcs-Tasks_webdemo-execution-1b5e77c7a347fc2b"
