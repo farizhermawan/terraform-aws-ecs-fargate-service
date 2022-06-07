@@ -31,21 +31,21 @@ locals {
 }
 
 module "service_name" {
-  source = "github.com/traveloka/terraform-aws-resource-naming?ref=v0.19.1"
+  source = "github.com/traveloka/terraform-aws-resource-naming?ref=v0.22.0"
 
   name_prefix   = local.cluster
   resource_type = "ecs_service"
 }
 
 module "taskdef_name" {
-  source = "github.com/traveloka/terraform-aws-resource-naming?ref=v0.19.1"
+  source = "github.com/traveloka/terraform-aws-resource-naming?ref=v0.22.0"
 
   name_prefix   = local.cluster
   resource_type = "ecs_task_definition"
 }
 
 module "log_group_name" {
-  source = "github.com/traveloka/terraform-aws-resource-naming?ref=v0.19.1"
+  source = "github.com/traveloka/terraform-aws-resource-naming?ref=v0.22.0"
 
   name_prefix   = "/tvlk/${var.cluster_role}-${var.application}/${var.service_name}"
   resource_type = "cloudwatch_log_group"
