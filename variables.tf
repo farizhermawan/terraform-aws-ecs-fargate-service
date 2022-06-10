@@ -113,6 +113,12 @@ variable "memory" {
   default     = "1024"
 }
 
+variable "runtime_cpu_architecture" {
+  description = "Set this to `ARM64` to use AWS Graviton"
+  type        = string
+  default = "X86_64"
+}
+
 variable "service_tags" {
   description = "Custom tags for ECS Service"
   type        = map(any)
