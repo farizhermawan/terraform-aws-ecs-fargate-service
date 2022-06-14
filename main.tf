@@ -73,6 +73,8 @@ resource "aws_ecs_service" "ecs_service" {
       load_balancer, # https://github.com/hashicorp/terraform-provider-aws/issues/13192
       platform_version,
       task_definition,
+      launch_type,
+      capacity_provider_strategy,
     ]
   }
 }

@@ -116,7 +116,7 @@ variable "memory" {
 variable "runtime_cpu_architecture" {
   description = "Set this to `ARM64` to use AWS Graviton"
   type        = string
-  default = "X86_64"
+  default     = "X86_64"
 }
 
 variable "service_tags" {
