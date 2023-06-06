@@ -17,3 +17,13 @@ output "taskdef_arn" {
   value       = aws_ecs_task_definition.task_def.arn
   description = "The full ARN of the task definition"
 }
+
+output "resource_naming_service" {
+  value       = module.service_name.name
+  description = "The ecs service name from resource-naming, use this as reference value to avoid cyclic reference"
+}
+
+output "resource_naming_taskdef" {
+  value       = module.taskdef_name.name
+  description = "The task definition name from resource-naming, use this as reference value to avoid cyclic reference"
+}
