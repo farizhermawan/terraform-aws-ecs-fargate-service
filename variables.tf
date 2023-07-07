@@ -46,6 +46,12 @@ variable "target_group_arn" {
   type        = string
 }
 
+variable "secondary_target_group_arn" {
+  description = "ARN of the 2nd ALB target group to associate with the service"
+  type        = string
+  default     = ""
+}
+
 variable "image_name" {
   description = "Name of the docker image that will be used by the task"
   type        = string

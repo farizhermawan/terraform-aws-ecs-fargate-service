@@ -28,6 +28,8 @@ locals {
     environment    = jsonencode(var.environment_variables)
     product_domain = var.product_domain
   })
+
+  target_group_arn_list = concat([var.target_group_arn], var.secondary_target_group_arn != "" ? [var.secondary_target_group_arn] : [])
 }
 
 module "service_name" {
@@ -89,10 +91,13 @@ resource "aws_ecs_service" "ecs_service" {
     assign_public_ip = var.assign_public_ip
   }
 
-  load_balancer {
-    target_group_arn = var.target_group_arn
-    container_name   = var.main_container_name
-    container_port   = var.main_container_port
+  dynamic "load_balancer" {
+    for_each = local.target_group_arn_list
+    content {
+      target_group_arn = load_balancer.value
+      container_name   = var.main_container_name
+      container_port   = var.main_container_port
+    }
   }
 
   propagate_tags = "SERVICE"
