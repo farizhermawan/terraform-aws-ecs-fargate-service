@@ -119,6 +119,11 @@ resource "aws_ecs_task_definition" "task_def" {
   execution_role_arn       = var.execution_role_arn
   network_mode             = "awsvpc"
 
+  runtime_platform {
+    operating_system_family = "LINUX"
+    cpu_architecture        = var.runtime_cpu_architecture
+  }
+
   cpu    = var.cpu
   memory = var.memory
 
